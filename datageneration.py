@@ -49,7 +49,7 @@ except ImportError:
         'cannot import numpy, make sure numpy package is installed')
 
 import image_converter
-from carla.client import make_carla_client, VehicleControl
+import carla
 from carla.planner.map import CarlaMap
 from carla.tcp import TCPConnectionError
 from carla.transform import Transform, Scale
@@ -100,6 +100,7 @@ class CarlaGame(object):
         self._mini_view_image2 = None
         self._enable_autopilot = args.autopilot
         self._lidar_measurement = None
+        self.world = self.client.get_world()
         self._map_view = None
         self._is_on_reverse = False
         self._city_name = args.map_name
@@ -123,7 +124,7 @@ class CarlaGame(object):
         # Figures out which frame number we currently are on
         # This is run once, when we start the simulator in case we already have a dataset.
         # The user can then choose to overwrite or append to the dataset.
-        label_path = os.path.join(OUTPUT_FOLDER, 'label_2/')
+        label_path = os.path.join(OUTPUT_FOLDER, 'labels/')
         num_existing_data_files = len(
             [name for name in os.listdir(label_path) if name.endswith('.txt')])
         print(num_existing_data_files)
@@ -491,7 +492,7 @@ def parse_args():
     argparser.add_argument(
         '-m', '--map-name',
         metavar='M',
-        default=None,
+        default="Town01",
         help='plot the map of the current city (needs to match active map in '
              'server, options: Town01 or Town02)')
     args = argparser.parse_args()
@@ -507,7 +508,7 @@ def main():
 
     while True:
         try:
-            with make_carla_client(args.host, args.port) as client:
+            with carla.Client(args.host, args.port) as client:
                 game = CarlaGame(client, args)
                 game.execute()
                 break
