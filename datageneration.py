@@ -50,7 +50,6 @@ except ImportError:
 
 import image_converter
 import carla
-from carla.planner.map import CarlaMap
 from carla.tcp import TCPConnectionError
 from carla.transform import Transform, Scale
 
