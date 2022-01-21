@@ -3,7 +3,7 @@ This file includes a number of helper functions for the main loop of the carla s
 This includes printing measurements and steering.0
 """
 
-from carla.client import VehicleControl
+from carla import VehicleControl
 from carla.util import print_over_same_line
 
 try:
