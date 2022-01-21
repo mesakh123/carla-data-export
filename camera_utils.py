@@ -2,7 +2,7 @@ import numpy as np
 from numpy.linalg import pinv, inv
 from constants import WINDOW_HEIGHT, WINDOW_WIDTH
 
-from carla import image_converter
+import image_converter
 
 
 def calc_projected_2d_bbox(vertices_pos2d):
