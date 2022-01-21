@@ -50,8 +50,7 @@ except ImportError:
 
 import image_converter
 import carla
-from carla.tcp import TCPConnectionError
-from carla.transform import Transform, Scale
+from carla import Transform
 
 from utils import Timer, rand_color, vector3d_to_array, degrees_to_radians
 from datadescriptor import KittiDescriptor
@@ -510,8 +509,7 @@ def main():
                 game = CarlaGame(client, args)
                 game.execute()
                 break
-        except TCPConnectionError as error:
-            logging.error(error)
+        except:
             time.sleep(1)
 
 
